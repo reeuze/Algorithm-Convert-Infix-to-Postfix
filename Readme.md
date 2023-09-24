@@ -7,3 +7,4 @@ This is the example of Infix convert to Postfix :
 --- photo ---
 
 The algorithm :
+1. Buat terlebih dahulu contoh inputnya
