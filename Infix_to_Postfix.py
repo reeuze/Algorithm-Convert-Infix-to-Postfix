@@ -38,16 +38,18 @@ class Infix_Postfix:
         elif operator1.index(operators) == operator2.index(operators):
             return operator1
     def Algorithm(self, input=[], index=0):
-        if input[index].isdigit():
+        if not self.Stack:
+            self.Stack.append('(')
+            self.Algorithm(input, index)
+        elif input[index].isdigit():
             self.Postfix.append(input[index])
-            self.Print(input[index])
-            self.Algorithm(input, index+1)
+            # self.Print(input[index])
         elif input[index]=='(':
             self.Stack.append(input[index])
-            self.Print(input[index])
+            # self.Print(input[index])
             self.Algorithm(input, index+1)
         elif self.Is_Operator(input[index]) is True:
-            self.Priority(input[index], self.Stack.peek())
+            self.Priority(input[index], self.Stack[-1])
             self.Stack.append(input[index])
         elif input[index]==')':
             return input[index-1]
@@ -55,7 +57,7 @@ class Infix_Postfix:
             return input[index]
         self.Print(input[index])
 
-input = "1+(2/3-(4*5^6)+7)*8"
+input = "(1+(2/3-(4*5^6)+7)*8)"
 a = Infix_Postfix()
 a.Convert(input)
 a.Algorithm(a.Input)
