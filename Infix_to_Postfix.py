@@ -15,17 +15,18 @@ class Infix_Postfix:
         return a/b
     def Rank(self, a, b):
         return a^b
-    def Recurtion(self, var):
+    def Priority(self, var):
         if var==')':
             return var
         elif var=='(':
             print("A")
-    def String_breaker(self, String):
+    def Convert(self, String):
         for char in String:
             if char.isdigit():
-                print("A")
+                self.Number.append(char)
             else:
-                print("B")
+                self.Temp.append(char)
+
     # def Postfix(self, var):
 
 input = "1+(2/3-(4*5^6)+7)*8"
