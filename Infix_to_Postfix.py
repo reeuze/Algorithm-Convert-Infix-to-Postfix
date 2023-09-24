@@ -4,6 +4,7 @@ class Infix_Postfix:
         self.Number = []
         self.Stack = []
         self.Postfix = []
+        self.Operator = '+'
         self.Sum = 0
     def Print(self, input):
         print("scanned input : ", input)
@@ -28,20 +29,25 @@ class Infix_Postfix:
         elif operator=='^':
             return var1^var2
         return None
+    def Priority(self, operator1, operator2):
+        operators = [['+', '-'], ['*', '/'], ['^']]
+        if operator1.index(operators) > operator2.index(operators):
+            return operator1
+        elif operator1.index(operators) < operator2.index(operators):
+            return operator2
+        elif operator1.index(operators) == operator2.index(operators):
+            return operator1
     def Algorithm(self, input=[], index=0):
-        if input[index].isDigit():
+        if input[index].isdigit():
             self.Postfix.append(input[index])
-            # self.Algorithm(input, index+1)
-            sum = self.Operation(input[index], self.Algorithm(input, index+2), self.Algorithm(input, index+1))
-            if sum is None:
-                return input[index]
-            else:
-                return sum
+            self.Print(input[index])
+            self.Algorithm(input, index+1)
         elif input[index]=='(':
             self.Stack.append(input[index])
+            self.Print(input[index])
             self.Algorithm(input, index+1)
         elif self.Is_Operator(input[index]) is True:
-            
+            self.Priority(input[index], self.Stack.peek())
             self.Stack.append(input[index])
         elif input[index]==')':
             return input[index-1]
@@ -52,3 +58,4 @@ class Infix_Postfix:
 input = "1+(2/3-(4*5^6)+7)*8"
 a = Infix_Postfix()
 a.Convert(input)
+a.Algorithm(a.Input)
