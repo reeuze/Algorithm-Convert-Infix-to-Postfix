@@ -39,36 +39,37 @@ class Infix_Postfix:
     def calculation(self, input=[], index=0):
         self.Char = []
         self.Num = []
-        # print(input, len(input))
+        print(input, index)
         while input:
-            # print(index, input[index])
+            print(index, input[index])
             if input[index]==')':
                 break
             elif input[index].isdigit():
                 self.Num.append(input.pop(index))
             elif self.Is_Operator(input[index]) is True:
                 self.Char.append(input.pop(index))
-            # print(self.Char, self.Num)
+            print(self.Char, self.Num)
         i = 0
         best  = 0 
         while len(self.Num) != 1:
             for j, operator in enumerate(self.Char):
-                if operator=='+' or operator=='-' and best < 1:
+                if (operator=='+' or operator=='-') and best < 1:
                     n = 1
                     i = j
-                elif operator=='*' or operator=='/' and best < 2:
+                elif (operator=='*' or operator=='/') and best < 2:
                     n = 2
                     i = j
                 elif operator=='^' and best < 3:
                     n = 3
                     i = j
                 best = n
-            # print(i)
-            # print("var1 :", self.Num[i], "var2 :", self.Num[i+1], "oper :", self.Char[i])
+                print(best)
+            # print(n)
+            print("var1 :", self.Num[i], "var2 :", self.Num[i+1], "oper :", self.Char[i])
             hasil = self.Operation(self.Num.pop(i), self.Num.pop(i), self.Char.pop(i))
             self.Num.append(hasil)
             input[index] = self.Num.pop()
-            input[index-1] = input.pop(index)
+            input[index-1] =  str(input.pop(index))
     def Replace_operator(self, op1, op2):
         i = 0
         j = 0
@@ -84,7 +85,7 @@ class Infix_Postfix:
             j = 2
         elif op2=='^':
             j = 3
-        print("i = ", i, "j = ", j)
+        # print("i = ", i, "j = ", j)
         if i>=j:
             return op1
         elif i<j:
@@ -96,16 +97,16 @@ class Infix_Postfix:
     #     return index
     def fixing_stack(self, input=[]):
         for i in range(len(input)):
-            if input[i] is None:
-                input[i].pop()
+            if input[i] is not None:
+                input[i].append()
     def Algorithm(self, input=[], index=0):
         for i in range(index, len(input)):
-            print("i = ",  i)
-            print("elemen : ", input[i])
+            # print("i = ",  i)
+            # print("elemen : ", input[i])
             if input[i]=='(':
                 self.Character.append(input[i])
                 self.Print(input[i])
-                input.append(self.Algorithm(input, i+1))
+                self.Algorithm(input, i+1)
                 # i += self.Forward_index(input, i+1)
                 # i += index
             elif input[i].isdigit():
@@ -116,7 +117,7 @@ class Infix_Postfix:
                 else:
                     self.Character.append(input[i])
             elif input[i]==')':
-                self.fixing_stack(input)
+                # self.fixing_stack(input)
                 self.Fix_character(self.Character, self.Postfix)
                 self.calculation(input, index)
                 return
