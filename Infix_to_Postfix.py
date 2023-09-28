@@ -39,9 +39,7 @@ class Infix_Postfix:
     def calculation(self, input=[], index=0):
         self.Char = []
         self.Num = []
-        # print(input, index)
         while input:
-            # print(index, input[index])
             if input[index]==')':
                 break
             elif input[index].isdigit():
@@ -50,7 +48,6 @@ class Infix_Postfix:
                 self.Char.append(input.pop(index))
             else:
                 self.Num.append(str(input.pop(index)))
-            # print(self.Char, self.Num)
         while True:
             i = 0
             best  = 0
@@ -65,24 +62,14 @@ class Infix_Postfix:
                     n = 3
                     i = j
                 best = n
-                # print(best)
-                # time.sleep(2)
-            # print(n)
-            # print("var1 :", self.Num[i], "var2 :", self.Num[i+1], "oper :", self.Char[i])
-            # print(self.Num)
             hasil = self.Operation(self.Num[i], self.Num[i+1], self.Char.pop(i))
             self.Num.insert(i, str(hasil))
             self.Num.pop(i+1)
             self.Num.pop(i+1)
-            # print(self.Num, len(self.Num))
             if len(self.Num) == 1:
                 break
-            # time.sleep(2)
-        # print(self.Num)
         input[index] = self.Num.pop()
-        input[index-1] =  str(input.pop(index))
-        # print(input)
-        # time.sleep(4)
+        input[index-1] =  input.pop(index)
     def Replace_operator(self, op1, op2):
         i = 0
         j = 0
@@ -98,32 +85,22 @@ class Infix_Postfix:
             j = 2
         elif op2=='^':
             j = 3
-        # print("i = ", i, "j = ", j)
         if i>=j:
             return op1
         elif i<j:
             return op2
-    # def Forward_index(self, input=[], index=0):
-    #     for i in range(index, len(input)):
-    #         if input[i]==')':
-    #             index += 1
-    #     return index
     def fixing_stack(self, input=[]):
         for i in range(len(input)):
             if input[i] is not None:
                 input[i].append()
     def Algorithm(self, input=[], index=0):
         for i in range(index, len(input)):
-            # print("i = ",  i)
-            # print("elemen : ", input[i])
             if len(input) == 1:
                 break
             elif input[i]=='(':
                 self.Character.append(input[i])
                 self.Print(input[i])
                 self.Algorithm(input, i+1)
-                # i += self.Forward_index(input, i+1)
-                # i += index
             elif input[i].isdigit():
                 self.Postfix.append(input[i])
             elif self.Is_Operator(input[i]) is True:
@@ -132,17 +109,15 @@ class Infix_Postfix:
                 else:
                     self.Character.append(input[i])
             elif input[i]==')':
-                # self.fixing_stack(input)
                 self.Fix_character(self.Character, self.Postfix)
                 self.calculation(input, index)
                 return
             self.Print(input[i])
-            time.sleep(1)
+            time.sleep(1.5)
         return ''.join(self.Input)
 
 input = "1+(2/3-(4*5^6)+7)*8"
 a = Infix_Postfix()
 a.Convert(input)
-# print(a.Input)
 hasil = a.Algorithm(a.Input)
 print("\nHasilnya : ", hasil)
