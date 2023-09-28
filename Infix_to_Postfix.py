@@ -138,10 +138,11 @@ class Infix_Postfix:
                 return
             self.Print(input[i])
             time.sleep(1)
+        return ''.join(self.Input)
 
 input = "1+(2/3-(4*5^6)+7)*8"
 a = Infix_Postfix()
 a.Convert(input)
 # print(a.Input)
-hasil = int(a.Input)
+hasil = a.Algorithm(a.Input)
 print("\nHasilnya : ", hasil)
