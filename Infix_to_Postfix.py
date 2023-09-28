@@ -1,3 +1,4 @@
+import time
 class Infix_Postfix:
     def __init__(self):
         self.Input = []
@@ -6,8 +7,7 @@ class Infix_Postfix:
     def Print(self, input):
         print("scanned input : ", input)
         print("Stack :", ''.join(self.Character))
-        print("Postfix :", ''.join(self.Postfix))
-        print("Input : ", self.Input)
+        print("Postfix :", ''.join(self.Postfix), "\n")
     def Convert(self, input):
         self.Input.append('(')
         for char in input:
@@ -19,15 +19,15 @@ class Infix_Postfix:
             return True
     def Operation(self, var1, var2, operator):
         if operator=='+':
-            return int(var1)+int(var2)
+            return float(var1)+float(var2)
         elif operator=='-':
-            return int(var1)-int(var2)
+            return float(var1)-float(var2)
         elif operator=='*':
-            return int(var1)*int(var2)
+            return float(var1)*float(var2)
         elif operator=='/':
-            return int(var1)/int(var2)
+            return float(var1)/float(var2)
         elif operator=='^':
-            return int(var1)**int(var2)
+            return float(var1)**float(var2)
     def Fix_character(self, character=[], postfix=[]):
         i = len(character) - 1
         while i >= 0:
@@ -39,19 +39,21 @@ class Infix_Postfix:
     def calculation(self, input=[], index=0):
         self.Char = []
         self.Num = []
-        print(input, index)
+        # print(input, index)
         while input:
-            print(index, input[index])
+            # print(index, input[index])
             if input[index]==')':
                 break
             elif input[index].isdigit():
-                self.Num.append(input.pop(index))
+                self.Num.append(str(input.pop(index)))
             elif self.Is_Operator(input[index]) is True:
                 self.Char.append(input.pop(index))
-            print(self.Char, self.Num)
-        i = 0
-        best  = 0 
-        while len(self.Num) != 1:
+            else:
+                self.Num.append(str(input.pop(index)))
+            # print(self.Char, self.Num)
+        while True:
+            i = 0
+            best  = 0
             for j, operator in enumerate(self.Char):
                 if (operator=='+' or operator=='-') and best < 1:
                     n = 1
@@ -63,13 +65,24 @@ class Infix_Postfix:
                     n = 3
                     i = j
                 best = n
-                print(best)
+                # print(best)
+                # time.sleep(2)
             # print(n)
-            print("var1 :", self.Num[i], "var2 :", self.Num[i+1], "oper :", self.Char[i])
-            hasil = self.Operation(self.Num.pop(i), self.Num.pop(i), self.Char.pop(i))
-            self.Num.append(hasil)
-            input[index] = self.Num.pop()
-            input[index-1] =  str(input.pop(index))
+            # print("var1 :", self.Num[i], "var2 :", self.Num[i+1], "oper :", self.Char[i])
+            # print(self.Num)
+            hasil = self.Operation(self.Num[i], self.Num[i+1], self.Char.pop(i))
+            self.Num.insert(i, str(hasil))
+            self.Num.pop(i+1)
+            self.Num.pop(i+1)
+            # print(self.Num, len(self.Num))
+            if len(self.Num) == 1:
+                break
+            # time.sleep(2)
+        # print(self.Num)
+        input[index] = self.Num.pop()
+        input[index-1] =  str(input.pop(index))
+        # print(input)
+        # time.sleep(4)
     def Replace_operator(self, op1, op2):
         i = 0
         j = 0
@@ -103,7 +116,9 @@ class Infix_Postfix:
         for i in range(index, len(input)):
             # print("i = ",  i)
             # print("elemen : ", input[i])
-            if input[i]=='(':
+            if len(input) == 1:
+                break
+            elif input[i]=='(':
                 self.Character.append(input[i])
                 self.Print(input[i])
                 self.Algorithm(input, i+1)
@@ -121,16 +136,12 @@ class Infix_Postfix:
                 self.Fix_character(self.Character, self.Postfix)
                 self.calculation(input, index)
                 return
-            # elif input[i]==input[-1]:
-            #     self.fixing_stack(input)
-            #     self.Fix_character(self.Character, self.Postfix)
-            #     self.calculation(input, index)
-            #     return
             self.Print(input[i])
+            time.sleep(1)
 
 input = "1+(2/3-(4*5^6)+7)*8"
 a = Infix_Postfix()
 a.Convert(input)
 # print(a.Input)
-hasil = a.Algorithm(a.Input)
-print("\nhasilnya : ", hasil)
+hasil = int(a.Input)
+print("\nHasilnya : ", hasil)
