@@ -4,7 +4,7 @@ Assesment #4
 Create a program that will change from infix to postfix
 This is the example of Infix convert to Postfix :
 
-![alt text](?raw=true)
+![alt text](https://github.com/reeuze/Algorithm-Convert-Infix-to-Postfix/blob/main/Image/Image%20Infix%20to%20Postfix.png?raw=true)
 
 The algorithm :
 1. Change the form of input which is still in string form to stack form, at the beginning and end with open and close brackets
