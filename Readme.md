@@ -4,18 +4,15 @@ Assesment #4
 Create a program that will change from infix to postfix
 This is the example of Infix convert to Postfix :
 
--- photo --
+![alt text](?raw=true)
 
 The algorithm :
-1. Ubah input dari bentuk string menjadi stack input
-2. Lakukan pemanggilan terhadap func Algorithm
-3. Apabila input merupakan digit
-   a. append nilai input[index] ke stack Postfix
-4. Apabila input[index] adalah digit atau "("
-   a. append nilai input
-   b. Panggil func Algorithm
-5. Apabila input[index] adalah operator
-   a. Check 5 langkah 
-   a. Check prioritas menggunakan func Priority
-      i. Apabila prioritasnya lebih kecil
-6. Apabila input[index] adalah ")" atau input[-1]
+1. Change the form of input which is still in string form to stack form, at the beginning and end with open and close brackets
+2. Then check the elements one by one, using looping
+3. If the element is an open bracket, then add the value to the character stack. Then do it recursively
+4. If the element is a number, then add the value to the postfix stack
+5. If the element has the operator value +/-/:/*/^, then add the value to the postfix operator, with the priority conditions below
+   previous operator. If the operator has priority below the previous operator, then enter the previous value to the postfix stack,
+   and add the operator to the character stack
+6. If the element has the value of the closing bracket, then enter the operator in the character stack up to the opening bracket,
+   then perform the operation count against the numbers in brackets
