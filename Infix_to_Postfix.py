@@ -87,13 +87,14 @@ class Infix_Postfix:
             j = 2
         elif op2=='^':
             j = 3
-        if i>j:
+        print (i, j, op1, op2)
+        if i>j:     # stack lebih penting
+            self.Postfix.append(op1)
+            self.Character.pop()
             self.Character.append(op2)
-            return op1
-        elif i<=j:
-            self.Character.append(op2)
+        elif i<=j:  # input lebih penting
             self.Character.append(op1)
-            return None
+            self.Character.append(op2)
     # def fixing_stack(self, input=[]):
     #     for i in range(len(input)):
     #         if input[i] is not None:
@@ -110,9 +111,7 @@ class Infix_Postfix:
                 self.Postfix.append(input[i])
             elif self.Is_Operator(input[i]) is True:
                 if self.Is_Operator(self.Character[-1]) is True:
-                    Replace = self.Replace_operator(self.Character.pop(), input[i])
-                    if Replace is not None:
-                        self.Postfix.append(Replace)
+                    self.Replace_operator(self.Character[-1], input[i])
                 else:
                     self.Character.append(input[i])
             elif input[i]==')':
