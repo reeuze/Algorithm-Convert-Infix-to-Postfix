@@ -35,7 +35,6 @@ class Infix_Postfix:
                 character.pop()
                 break
             else:
-                print(character[i])
                 postfix.append(character.pop())
             i -= 1
     def calculation(self, input=[], index=0):
@@ -81,19 +80,18 @@ class Infix_Postfix:
             i = 2
         elif op1=='^':
             i = 3
-        elif op2=='+' or op2=='-':
+        if op2=='+' or op2=='-':
             j = 1
         elif op2=='*' or op2=='/':
             j = 2
         elif op2=='^':
             j = 3
         print (i, j, op1, op2)
-        if i>j:     # stack lebih penting
+        if i>=j:     # stack lebih penting
             self.Postfix.append(op1)
             self.Character.pop()
             self.Character.append(op2)
-        elif i<=j:  # input lebih penting
-            self.Character.append(op1)
+        elif i<j:   # input lebih penting
             self.Character.append(op2)
     # def fixing_stack(self, input=[]):
     #     for i in range(len(input)):
