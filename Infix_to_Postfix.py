@@ -32,8 +32,10 @@ class Infix_Postfix:
         i = len(character) - 1
         while i >= 0:
             if character[i]=='(':
+                character.pop()
                 break
             else:
+                print(character[i])
                 postfix.append(character.pop())
             i -= 1
     def calculation(self, input=[], index=0):
@@ -86,13 +88,15 @@ class Infix_Postfix:
         elif op2=='^':
             j = 3
         if i>=j:
+            self.Character.append(op2)
             return op1
         elif i<j:
+            self.Character.append(op2)
             return op2
-    def fixing_stack(self, input=[]):
-        for i in range(len(input)):
-            if input[i] is not None:
-                input[i].append()
+    # def fixing_stack(self, input=[]):
+    #     for i in range(len(input)):
+    #         if input[i] is not None:
+    #             input[i].append()
     def Algorithm(self, input=[], index=0):
         for i in range(index, len(input)):
             if len(input) == 1:
